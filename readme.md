@@ -19,7 +19,7 @@ A Docker Compose setup providing local Azure service emulators for development a
 
 ### 1. Clone and Navigate
 ```bash
-git clone [<repository-url>](https://github.com/joehom0416/Local.Azure.git)
+git clone https://github.com/joehom0416/Local.Azure.git
 cd Local.Azure
 ```
 
