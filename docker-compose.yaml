@@ -1,0 +1,46 @@
+name: azure-local
+services:
+  azurite:
+    container_name: "azurite"
+    image: mcr.microsoft.com/azure-storage/azurite:latest
+    # Azurite supports Blob, Queue, and Table services by default.
+    # Expose ports 10000 (Blob), 10001 (Queue), 10002 (Table).
+    ports:
+      - "10000:10000"
+      - "10001:10001"
+      - "10002:10002"
+    networks:
+      azure-local-networks:
+        aliases:
+          - "azurite"
+  mssql:
+    container_name: "mssql"
+    image: "mcr.microsoft.com/mssql/server:2022-latest"
+    networks:
+      azure-local-networks:
+        aliases:
+          - "mssql"
+    environment:
+      ACCEPT_EULA: ${ACCEPT_EULA}          
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}  
+    ports:
+      - "1433:1433"
+  emulator:
+    container_name: "servicebus-emulator"
+    image: mcr.microsoft.com/azure-messaging/servicebus-emulator:latest
+    volumes:
+      - "${CONFIG_PATH}:/ServiceBus_Emulator/ConfigFiles/Config.json"
+    ports:
+      - "5672:5672"
+    environment:
+      SQL_SERVER: mssql  
+      MSSQL_SA_PASSWORD: ${MSSQL_SA_PASSWORD}
+      ACCEPT_EULA: ${ACCEPT_EULA}
+    depends_on:
+      - mssql
+    networks:
+      azure-local-networks:
+        aliases:
+          - "sb-emulator"
+networks:
+  azure-local-networks:

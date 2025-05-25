@@ -1,0 +1,102 @@
+{
+  "UserConfig": {
+    "Namespaces": [
+      {
+        "Name": "sbemulatorns",
+        "Queues": [
+          {
+            "Name": "queue-01",
+            "Properties": {
+              "DeadLetteringOnMessageExpiration": false,
+              "DefaultMessageTimeToLive": "PT1H",
+              "DuplicateDetectionHistoryTimeWindow": "PT20S",
+              "ForwardDeadLetteredMessagesTo": "",
+              "ForwardTo": "",
+              "LockDuration": "PT1M",
+              "MaxDeliveryCount": 10,
+              "RequiresDuplicateDetection": false,
+              "RequiresSession": false
+            }
+          },
+          {
+            "Name": "queue-02",
+            "Properties": {
+              "DeadLetteringOnMessageExpiration": false,
+              "DefaultMessageTimeToLive": "PT1H",
+              "DuplicateDetectionHistoryTimeWindow": "PT20S",
+              "ForwardDeadLetteredMessagesTo": "",
+              "ForwardTo": "",
+              "LockDuration": "PT1M",
+              "MaxDeliveryCount": 10,
+              "RequiresDuplicateDetection": false,
+              "RequiresSession": false
+            }
+          }
+        ],
+
+        "Topics": [
+          {
+            "Name": "topic-01",
+            "Properties": {
+              "DefaultMessageTimeToLive": "PT1H",
+              "DuplicateDetectionHistoryTimeWindow": "PT20S",
+              "RequiresDuplicateDetection": false
+            },
+            "Subscriptions": [
+              {
+                "Name": "topic-01-subscriptions-01",
+                "Properties": {
+                  "DeadLetteringOnMessageExpiration": false,
+                  "DefaultMessageTimeToLive": "PT1H",
+                  "LockDuration": "PT1M",
+                  "MaxDeliveryCount": 10,
+                  "ForwardDeadLetteredMessagesTo": "",
+                  "ForwardTo": "",
+                  "RequiresSession": false
+                },
+                "Rules": [
+                  {
+                    "Name": "app-prop-filter-1",
+                    "Properties": {
+                      "FilterType": "Correlation",
+                      "CorrelationFilter":{
+                          "Label":null
+                      }
+                  
+                    }
+                  }
+                ]
+              },
+              {
+                "Name": "topic-01-subscriptions-01",
+                "Properties": {
+                  "DeadLetteringOnMessageExpiration": false,
+                  "DefaultMessageTimeToLive": "PT1H",
+                  "LockDuration": "PT1M",
+                  "MaxDeliveryCount": 10,
+                  "ForwardDeadLetteredMessagesTo": "",
+                  "ForwardTo": "",
+                  "RequiresSession": false
+                },
+                "Rules": [
+                  {
+                    "Name": "app-prop-filter-2",
+                    "Properties": {
+                      "FilterType": "Correlation",
+                      "CorrelationFilter": {
+                        "Label":"eFileConnect"
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    "Logging": {
+      "Type": "File"
+    }
+  }
+}
